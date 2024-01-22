@@ -1,0 +1,8 @@
+[2022-01-20 12:34:56] INFO - Service-A: Request received for operation XYZ
+[2022-01-20 12:35:02] WARN - Service-B: Connection timeout while trying to access external API
+[2022-01-20 12:36:15] ERROR - Service-C: Database connection error: Connection refused
+[2022-01-20 12:38:45] DEBUG - Service-D: Processing step 1 completed successfully
+[2022-01-20 12:40:20] INFO - Service-A: Operation XYZ completed in 150 ms
+[2022-01-20 12:42:05] ERROR - Service-B: Internal server error: NullPointerException
+[2022-01-20 12:45:30] INFO - Service-C: Request processed successfully
+[2022-01-20 12:47:12] DEBUG - Service-D: Processing step 2 started
