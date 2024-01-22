@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Toolbox{% endblock %}
+
+
+{% block content %}
+    {% if username %}
+        <p>Welcome, {{ username }}!</p>
+    {% else %}
+        <p>Guest user</p>
+    {% endif %}
+{% endblock %}

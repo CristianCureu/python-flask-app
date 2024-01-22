@@ -8,6 +8,9 @@
 </head>
 <body>
     <h1>All Users</h1>
+        {% if not users %}
+        <p>No users stored in database.</p>
+    {% endif %}
     {% for user in users %}
         <p>{{ user.username }}</p>
     {% endfor %}

@@ -1,44 +1,48 @@
-from flask import render_template, request, redirect, url_for
-from __init__ import app
-from models import Users
+from flask import render_template, request, redirect, url_for, session
+from main import app
+from models import User
 from user_functions import login_user, register_user
 
 
 @app.route("/")
-@app.route("/<name>")
-def hello_name(name=None):
-    return render_template('hello.html', name=name)
+def main_page():
+    username = session.get("username")
+    return render_template('main.html', username=username)
 
 
-@app.route("/users/")
+@app.route("/users")
 def get_users():
-    users = Users.query.all()
-    print(f"{users}")
+    users = User.query.all()
     return render_template("users.html", users=users)
 
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     response = {'error': False, 'message': None}
-    # error = False
     if request.method == "POST":
-        # print(f"Received POST request data: {request.form}")
         login_result = login_user(request.form['username'], request.form['password'])
         response = login_result
         if not response['error']:
-            return redirect(url_for('hello_name', name=request.form['username']))
+            return redirect(url_for('main_page', name=request.form['username']))
     return render_template('login.html', response=response)
 
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
-    response = {'error': False, 'message': None} #valori initiale
+    response = {'error': False, 'message': None}
+    print("a")
     if request.method == 'POST':
         registration_result = (
             register_user(request.form['username'], request.form['password'], request.form['confirm_password']))
-            #facem requestu din html
-        response = registration_result #daca aplicam POST , valorile initiale se schimba
-    return render_template('register.html', response=response) #dupa ce se termina IF-u,aratam pe UI
+        response = registration_result
+    return render_template('register.html', response=response)
+
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.pop('user_id', None)
+    session.pop('username', None)
+    return redirect(url_for('main_page'))
 
 
 @app.route('/logs')
